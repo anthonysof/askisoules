@@ -13,11 +13,11 @@ def write_tweets(tweets, filename):
     with open(filename, 'a') as f:      #sinartisi pou 8a kaleitai gia na grafei ayta pou me endiaferoun se ena json arxeio me onoma to username pou me endiaferei
         json.dump(tweets._json, f)
         f.write('\n')
-                                                                        # edw prepei na simplirosete ta dika sas (mesa sta ' '):
-consumer_key = 'YOUR CONSUMER KEY'                              #consumer key
-consumer_secret = 'YOUR CONSUMER SECRET'                        #consumer secret
-access_token = 'YOUR ACCESS TOKEN'                              #access token
-access_secret = 'YOUR ACCESS SECRET'                            #access secret
+# edw prepei na simplirosete ta dika sas (mesa sta ' '):
+consumer_key = 'YOUR CONSUMER KEY'  # consumer key
+consumer_secret = 'YOUR CONSUMER SECRET'  # consumer secret
+access_token = 'YOUR ACCESS TOKEN'  # access token
+access_secret = 'YOUR ACCESS SECRET'  # access secret
 
 auth = OAuthHandler(consumer_key, consumer_secret)                  #stin ousia edw dino prosvasi stin efarmogi mou sto twitter simfona me ta keys mou
 auth.set_access_token(access_token, access_secret)                  #using the oAuth interface
@@ -38,16 +38,16 @@ emoticons_str = r"""
         [D\)\]\(\]/\\OpP]   
     )"""
 
-#ksexorizo apla strings
+#ksexorizo strings vasi:
 regex_str = [
     emoticons_str,
     r'<[^>]+>',  #HTML tags
     r'(?:@[\w_]+)',  #@-mentions
-    r"(?:\#+[\w_]+[\w\'_\-]*[\w_]+)",  #hash-tags
+    r"(?:\#+[\w_]+[\w\'_\-]*[\w_]+)",  #hashtags
     r'http[s]?://(?:[a-z]|[0-9]|[$-_@.&amp;+]|[!*\(\),]|(?:%[0-9a-f][0-9a-f]))+',  #URLs
 
     r'(?:(?:\d+,?)+(?:\.?\d+)?)',  #numbers
-    r"(?:[a-z][a-z\-_]+[a-z])",  #words with -
+    r"(?:[a-z'][a-z'\-_]+[a-z])",  #words with - kai '
     r'(?:[\w_]+)',  # ther words
     r'(?:\S)'  #otidipote allo
 ]
@@ -68,7 +68,7 @@ def preprocess(s, lowercase=False):             #molis klh8ei h preprocess ta pa
 #with preprocess everything is tokenized, links, mentions, hastags, even emoticons
 
 punctuation = list(string.punctuation)
-stop = stopwords.words('english') + punctuation + ['rt', 'via']     #ftiaxno tin lista stop opou periexei ta stopwords pou anefera pio pano + ta simia stiksis + ta 'rt' kai 'via'
+stop = stopwords.words('english') + punctuation + ['rt', 'via',u'\u2019']     #ftiaxno tin lista stop opou periexei ta stopwords pou anefera pio pano + ta simia stiksis + ta 'rt' kai 'via'
                                                                     #'rt' gia retweets kai 'via' gia mentions
 
 
@@ -76,12 +76,11 @@ filename = user_name + '.json'      #to onoma tou arxeiou pou eksartatai apo to 
 with open(filename, 'r') as f:      #anoigo to arxeio
     count_all = Counter()           #dimiourgo antikeimeno Counter pou 8a xrisimopoihso gia na vgalo katey8eian tis most_common lekseis
     for line in f:
-        tweet = json.loads(line)                                                            #se ka8e grammi tou arxeiou json, pairno orous apo to pedio full_text
+        tweet = json.loads(line)                                                         #se ka8e grammi tou arxeiou json, pairno orous apo to pedio full_text
         terms_all = [term for term in preprocess(tweet['full_text']) if term not in stop]   #opou vriskontai ta tweets, efoson ta terms ayta den anoikoun stin lista stop
         count_all.update(terms_all)                                                         #kano update ton counter
-    final_tuple = (count_all.most_common(5))                                                #dimiourgo mia tuple me tis most common lekseis kai poses fores emfanistikan
-    print final_tuple                                                                       #allazontas to orisma tis most_common mporoume na tiposoume tis x most common lekseis
-
+    final_tuple = (count_all.most_common(1))                                                #dimiourgo mia tuple me tis most common lekseis kai poses fores emfanistikan
+    print final_tuple[0][0]
 #diagrafo to arxeio pou dimiourgi8ike, comment out gia na to kratisete kai na to deite
 if f.closed:
     try:
