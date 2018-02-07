@@ -2,8 +2,10 @@ from random import randint
 from random import shuffle
 def create_player_choices():
     player = []
-    for i in range(5):
-        player.append(randint(1,80))
+    while len(player)!=5:
+        num = randint(1,80)
+        if num not in player:
+            player.append(num)
     return player
 
 def check_win(players,all_players):

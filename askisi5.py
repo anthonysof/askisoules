@@ -80,7 +80,7 @@ with open(filename, 'r') as f:      #anoigo to arxeio
         terms_all = [term for term in preprocess(tweet['full_text']) if term not in stop]   #opou vriskontai ta tweets, efoson ta terms ayta den anoikoun stin lista stop
         count_all.update(terms_all)                                                         #kano update ton counter
     final_tuple = (count_all.most_common(1))                                                #dimiourgo mia tuple me tis most common lekseis kai poses fores emfanistikan
-    print final_tuple[0][0]
+    print "most used word in the last 10 tweets was: \'"+str(final_tuple[0][0])+"\' and it was used: "+str(final_tuple[0][1])+" times"
 #diagrafo to arxeio pou dimiourgi8ike, comment out gia na to kratisete kai na to deite
 if f.closed:
     try:
