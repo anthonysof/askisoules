@@ -31,7 +31,7 @@ def announce_number(pool):
     if pool:
         return pool.pop()
     else:
-        return "loss"
+        return "loss |_"
 
 def create_pool():
     pool = []
@@ -49,7 +49,7 @@ for i in range(1000):
         all_players.append(create_player_choices())
     #print all_players
     res = ""
-    count = 1
+    count = 0
     while True:
         num = announce_number(pool)
         check_player(all_players,num)
