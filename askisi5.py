@@ -24,7 +24,7 @@ auth.set_access_token(access_token, access_secret)                  #using the o
 
 api = tweepy.API(auth)                  #telos h metavliti api einai tora to access point mas
 
-user_name = raw_input('dwse onoma xrhsth (xwris @) e.g.realDonaldTrump')      #diavazo onoma xristi pou me endiaferei
+user_name = raw_input('dwse onoma xrhsth (xwris @) e.g.realDonaldTrump: ')      #diavazo onoma xristi pou me endiaferei
 for status in tweepy.Cursor(api.user_timeline, screen_name=user_name, tweet_mode = 'extended').items(10):   #meso tis Cursor tou tweepy diavazo ta teleytaia 10 tweets se extended mode gia na ta paro plirws
     write_tweets(status, user_name+'.json')     #kalw tin write_tweets kai ta grafei se ena arxeio json
 
@@ -68,7 +68,7 @@ def preprocess(s, lowercase=False):             #molis klh8ei h preprocess ta pa
 #with preprocess everything is tokenized, links, mentions, hastags, even emoticons
 
 punctuation = list(string.punctuation)
-stop = stopwords.words('english') + punctuation + ['rt', 'via',u'\u2019']     #ftiaxno tin lista stop opou periexei ta stopwords pou anefera pio pano + ta simia stiksis + ta 'rt' kai 'via'
+stop = stopwords.words('english') + punctuation + ['rt', 'via',u'\u2019','amp']     #ftiaxno tin lista stop opou periexei ta stopwords pou anefera pio pano + ta simia stiksis + ta 'rt' kai 'via'
                                                                     #'rt' gia retweets kai 'via' gia mentions
 
 
