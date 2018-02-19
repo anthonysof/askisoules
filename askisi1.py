@@ -56,12 +56,13 @@ for i in range(1000):
         num = announce_number(pool)
         check_player(all_players,num)
         res = check_win(players,all_players)
+        count += 1
         if res != "":
             #print res
             #print all_players
             #print "we announced "+str(count)+" numbers"
             break
-        count+=1
+
     sum+=count
 average = float(sum)/1000.0
 print "xriazontai kata meso oro: "+str(average)+" ari8moi"
